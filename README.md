@@ -1,9 +1,6 @@
 Python Robotics Simulator
 ================================
 
-This is a simple, portable robot simulator developed by [Student Robotics](https://studentrobotics.org).
-Some of the arenas and the exercises have been modified for the Research Track I course
-
 Installing and running
 ----------------------
 
@@ -61,18 +58,22 @@ Each `Marker` object has the following attributes:
 * `rot_y`: an alias for `centre.rot_y`
 * `timestamp`: the time at which the marker was seen (when `R.see` was called).
 
-For example, the following code lists all of the markers the robot can see:
-
-```python
-markers = R.see()
-print "I can see", len(markers), "markers:"
-
-for m in markers:
-    if m.info.marker_type in (MARKER_TOKEN_GOLD, MARKER_TOKEN_SILVER):
-        print " - Token {0} is {1} metres away".format( m.info.offset, m.dist )
-    elif m.info.marker_type == MARKER_ARENA:
-        print " - Arena marker {0} is {1} metres away".format( m.info.offset, m.dist )
-```
-
-[sr-api]: https://studentrobotics.org/docs/programming/sr/
 # researchtrack_assignment_01
+The code is organized as follows :
+1. Initializing variables and set silver to True.
+2. Defining the functions we need to use : `drive()` to drive the robot with a certain speed at a given time, `turn()` to allow the robot to turn (right or left), `find_golden_token()` to allow the robot to search for golden tokens, `find_silver_token()` to allow the robot to search for silver tokens, and `get_id` to get the id of tokens.
+3. Main code : 
+While true do the following :
+* Search for a silver token.
+* Grab the token using `grab()` function.
+* Look for a Golden token.
+* Drive the robot toward the golden token then release the silver token next to it.
+* Repeat for all tokens.
+
+Each time the box releases a silver token next to a golden one, we store the `id` of the golden token in an array `rs[i]` then we increament the value of `i`. For every iteration we check the current value of `rs[i]` with `rs[i-1]` to know if the robot has visited that box before or not. This helps the robot evoids releasing multiple silver tokens next to the same golden token more than once.
+
+----------------------
+
+The folder containts the code file `assignment.py` to run the code copy `python2 run.py assignment.py` on the cmd window.
+
+Find the flowchart of the code on the `Flowchart` folder. You can open the flowchart diagram `flowchart.drawio` on Visual studio code using `draw.io` extention.
