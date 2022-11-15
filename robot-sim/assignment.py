@@ -167,4 +167,3 @@ while 1:
 						print("I am close !")
 		else :
 			print("still far")
-	#silver = not silver # to set silver to true
